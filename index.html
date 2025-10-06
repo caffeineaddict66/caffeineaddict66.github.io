@@ -57,6 +57,119 @@
             line-height: 1.6;
             min-height: 100vh;
             position: relative;
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        /* === ASCEND BUTTON === */
+        .ascend-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            padding: 0.8rem 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ascend-btn:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .ascend-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .ascend-btn:hover i {
+            transform: translateY(-2px);
+        }
+
+        /* === GITHUB IFRAME CONTAINER === */
+        .github-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: var(--darker);
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .github-container.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .github-header {
+            padding: 1.5rem 2rem;
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .github-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .close-github {
+            padding: 0.5rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .close-github:hover {
+            background: var(--primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .github-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            background: white;
+        }
+
+        /* === ASCEND ANIMATION STATES === */
+        body.ascending {
+            transform: translateY(-100vh) scale(0.9);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        body.landing {
+            transform: translateY(100vh) scale(1.1);
+            animation: land 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* === ADVANCED BACKGROUND EFFECTS === */
@@ -794,6 +907,32 @@
             50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
         }
 
+        /* === ASCEND ANIMATIONS === */
+        @keyframes shake {
+            0%, 100% { transform: translateY(-100vh) scale(0.9) rotate(0deg); }
+            25% { transform: translateY(-100vh) scale(0.9) rotate(-1deg); }
+            50% { transform: translateY(-100vh) scale(0.9) rotate(1deg); }
+            75% { transform: translateY(-100vh) scale(0.9) rotate(-0.5deg); }
+        }
+
+        @keyframes land {
+            0% { transform: translateY(100vh) scale(1.1); }
+            60% { transform: translateY(-10px) scale(1.02); }
+            80% { transform: translateY(5px) scale(0.98); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        @keyframes screenRise {
+            0% { 
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            100% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* === SCROLL ANIMATIONS === */
         .fade-in {
             opacity: 0;
@@ -864,6 +1003,13 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .ascend-btn {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -888,10 +1034,37 @@
             .stat-card {
                 padding: 2rem 1.5rem;
             }
+
+            .ascend-btn {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.6rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Ascend Button -->
+    <button class="ascend-btn">
+        <span>Ascend</span>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- GitHub Iframe Container -->
+    <div class="github-container">
+        <div class="github-header">
+            <div class="github-title">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </div>
+            <button class="close-github">
+                <i class="fas fa-times"></i>
+                Close
+            </button>
+        </div>
+        <iframe class="github-iframe" src="about:blank" frameborder="0"></iframe>
+    </div>
+
     <!-- Advanced Background Effects -->
     <div class="background-container">
         <div class="gradient-orbs orb-1"></div>
@@ -1158,7 +1331,7 @@
                         <h3 class="contact-title">Email Me</h3>
                         <p class="contact-detail">caffeineaddict66@outlook.com</p>
                     </a>
-                    <a href="https://github.com/caffeineaddict66" class="contact-card fade-in stagger-2">
+                    <a href="#" class="contact-card fade-in stagger-2">
                         <div class="contact-icon">
                             <i class="fab fa-github"></i>
                         </div>
@@ -1189,12 +1362,57 @@
                     <a href="#projects" class="footer-link">Projects</a>
                     <a href="#contact" class="footer-link">Contact</a>
                 </div>
-                <p class="copyright">Crafted with <i class="fas fa-heart heart"></i> and coffee • © 2025 CaffeineAddict66</p>
+                <p class="copyright">Crafted with <i class="fas fa-heart heart"></i> and coffee • © 2023 CaffeineAddict66</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Ascend Button Functionality
+        const ascendBtn = document.querySelector('.ascend-btn');
+        const githubContainer = document.querySelector('.github-container');
+        const githubIframe = document.querySelector('.github-iframe');
+        const closeGithub = document.querySelector('.close-github');
+        const body = document.body;
+
+        ascendBtn.addEventListener('click', () => {
+            // Start ascend animation
+            body.classList.add('ascending');
+            
+            // After animation completes, show GitHub iframe
+            setTimeout(() => {
+                body.classList.remove('ascending');
+                body.classList.add('landing');
+                
+                // Load GitHub in iframe
+                githubIframe.src = 'https://caffeineaddict66.github.io/coffee/clicker/index.html';
+                
+                // Show GitHub container with animation
+                setTimeout(() => {
+                    githubContainer.classList.add('active');
+                    body.classList.remove('landing');
+                }, 800);
+            }, 1500);
+        });
+
+        // Close GitHub iframe
+        closeGithub.addEventListener('click', () => {
+            githubContainer.classList.remove('active');
+            setTimeout(() => {
+                githubIframe.src = 'about:blank';
+            }, 500);
+        });
+
+        // Close GitHub on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && githubContainer.classList.contains('active')) {
+                githubContainer.classList.remove('active');
+                setTimeout(() => {
+                    githubIframe.src = 'about:blank';
+                }, 500);
+            }
+        });
+
         // Custom Cursor
         const cursor = document.querySelector('.custom-cursor');
         const cursorDot = document.querySelector('.cursor-dot');

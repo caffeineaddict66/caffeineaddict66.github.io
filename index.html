@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaffeineAddict66 | Chaotic Code Alchemist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base styles and CSS reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #06d6a0;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --text: #e2e8f0;
+            --neon-glow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Matrix background effect */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header styles */
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid var(--primary);
+            box-shadow: var(--neon-glow);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--dark), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--light);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            bottom: -10px;
+            left: 0;
+            animation: pulse 2s infinite;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* Bio section */
+        .bio {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bio::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--primary), transparent 30%);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
+        }
+
+        .bio-content {
+            background: var(--dark);
+            padding: 2rem;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Skills section */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .skill-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(6, 214, 160, 0.3);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 214, 160, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Projects showcase */
+        .projects {
+            margin: 4rem 0;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--dark), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--light);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        /* Contact section */
+        .contact {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            margin: 4rem 0;
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.1), transparent 70%);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            transition: all 0.3s;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .contact-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+            
+            .skills {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Additional chaotic elements */
+        .floating-code {
+            position: fixed;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            opacity: 0.7;
+            z-index: -1;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix background -->
+    <canvas id="matrix-bg"></canvas>
+    
+    <!-- Floating code elements -->
+    <div class="floating-code" style="top: 10%; left: 5%;">{"code": "chaos"}</div>
+    <div class="floating-code" style="top: 20%; right: 10%;">function createMagic()</div>
+    <div class="floating-code" style="top: 60%; left: 8%;">if (coffee) { code(); }</div>
+    <div class="floating-code" style="top: 80%; right: 5%;">bug.fix() || coffee.more()</div>
+    
+    <!-- Cursor trail elements will be added by JS -->
+    
+    <div class="container">
+        <header>
+            <div class="profile-pic">
+                <i class="fas fa-code"></i>
+            </div>
+            <h1>CaffeineAddict66</h1>
+            <p class="tagline">Turning caffeine into code since forever</p>
+        </header>
+        
+        <section class="bio">
+            <div class="bio-content">
+                <h2>About Me</h2>
+                <p>I'm a self-taught coder obsessed with turning ideas into messy-but-functional code. Mostly hacking around with JavaScript and Python, but always down to learn something new. I build things that look simple on the surface but have just enough chaos under the hood to keep life interesting.</p>
+                <p>Coffee-fueled, bug-embracing, and always trying to make digital magic happen. When I'm not wrestling with code, you'll find me exploring new frameworks, contributing to open-source projects, or debugging that one elusive issue that's been haunting my dreams.</p>
+                <p>My philosophy: Clean code is overrated. Functional chaos is where the real magic happens. Every bug is just a feature in disguise, waiting to be understood.</p>
+            </div>
+        </section>
+        
+        <section class="skills">
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fab fa-js-square"></i>
+                </div>
+                <h3>JavaScript Wizardry</h3>
+                <p>From vanilla JS to React, Vue, and Node.js. I love making the browser do things it wasn't meant to do.</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fab fa-python"></i>
+                </div>
+                <h3>Python Alchemy</h3>
+                <p>Transforming data, automating tasks, and occasionally creating sentient AI (just kidding... mostly).</p>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3>Debugging Sorcery</h3>
+                <p>Finding needles in haystacks, fixing what shouldn't be broken, and making peace with the console.</p>
+            </div>
+        </section>
+        
+        <section class="projects">
+            <h2>Chaotic Creations</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-meteor"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Code Meteor</h3>
+                        <p>A JavaScript library that makes elements crash into your page like meteors. Because why not?</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Randomizer 5000</h3>
+                        <p>A Python script that randomizes everything in your project. For when you're feeling adventurous.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Caffeine Calculator</h3>
+                        <p>Determines the optimal coffee-to-code ratio for maximum productivity (and minimum sanity).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="contact">
+            <h2>Get In Touch</h2>
+            <p>Want to collaborate on something wonderfully chaotic? Have a bug that needs embracing?</p>
+            <div class="contact-links">
+                <a href="mailto:caffeineaddict66@outlook.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>caffeineaddict66@outlook.com</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Crafted with <i class="fas fa-heart" style="color: #ef4444;"></i> and excessive amounts of caffeine</p>
+            <p>© 2023 CaffeineAddict66 | Embracing the beautiful chaos of code</p>
+        </footer>
+    </div>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = "01010101010101010101010101010101010101010101010101{}[]();.,!@#$%^&*";
+        const charArray = chars.split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(2, 6, 23, 0.04)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = "#06d6a0";
+            ctx.font = fontSize + "px monospace";
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        // Cursor trail effect
+        const trailElements = [];
+        const trailCount = 20;
+        
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trailElements.push({
+                element: trail,
+                x: 0,
+                y: 0,
+                size: 10 - (i * 0.4),
+                delay: i * 3
+            });
+        }
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function updateTrail() {
+            for (let i = 0; i < trailElements.length; i++) {
+                const trail = trailElements[i];
+                
+                if (i === 0) {
+                    trail.x = mouseX;
+                    trail.y = mouseY;
+                } else {
+                    const prevTrail = trailElements[i - 1];
+                    trail.x += (prevTrail.x - trail.x) / 2;
+                    trail.y += (prevTrail.y - trail.y) / 2;
+                }
+                
+                trail.element.style.left = trail.x - trail.size / 2 + 'px';
+                trail.element.style.top = trail.y - trail.size / 2 + 'px';
+                trail.element.style.width = trail.size + 'px';
+                trail.element.style.height = trail.size + 'px';
+                
+                const opacity = 1 - (i / trailCount);
+                trail.element.style.opacity = opacity;
+                
+                const hue = (i * 10 + Date.now() / 50) % 360;
+                trail.element.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            }
+            
+            requestAnimationFrame(updateTrail);
+        }
+        
+        updateTrail();
+        
+        // Interactive elements
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Random color flashes
+        setInterval(() => {
+            const randomElement = document.querySelectorAll('.skill-card, .project-card, .contact-link')[Math.floor(Math.random() * 10)];
+            if (randomElement) {
+                randomElement.style.boxShadow = '0 0 20px ' + getRandomColor();
+                setTimeout(() => {
+                    randomElement.style.boxShadow = '';
+                }, 300);
+            }
+        }, 1000);
+        
+        function getRandomColor() {
+            const colors = ['#8b5cf6', '#06d6a0', '#f59e0b', '#ef4444', '#3b82f6'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
